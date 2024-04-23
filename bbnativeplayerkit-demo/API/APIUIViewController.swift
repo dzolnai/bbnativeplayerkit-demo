@@ -8,8 +8,11 @@ class APIUIViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
     
     @IBOutlet weak var APIActionUIPickerView: UIPickerView!
     
-    private var bbPlayerView: BBNativePlayerView? = nil
-    lazy var playerHeightConstraint = bbPlayerView?.heightAnchor.constraint(equalToConstant: view.safeAreaLayoutGuide.layoutFrame.width * 9/16)
+    private var player1: BBNativePlayerView? = nil
+    private var player2: BBNativePlayerView? = nil
+    
+    lazy var player1HeightConstraint = player1?.heightAnchor.constraint(equalToConstant: view.safeAreaLayoutGuide.layoutFrame.width * 9/16)
+    lazy var player2HeightConstraint = player2?.heightAnchor.constraint(equalToConstant: view.safeAreaLayoutGuide.layoutFrame.width * 9/16)
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -19,26 +22,45 @@ class APIUIViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         APIActionUIPickerView.delegate = self
 
         // create player view using the embed url
-        bbPlayerView = BBNativePlayer.createPlayerView(uiViewController: self, frame: view.frame, jsonUrl: "https://demo.bbvms.com/p/native_sdk/c/4256593.json", options: ["showChromeCastMiniControlsInPlayer": true])
+        player1 = BBNativePlayer.createPlayerView(uiViewController: self, frame: view.frame, jsonUrl: "https://rtvnoord.bbvms.com/p/regiogroei_noord_ios_videoplayer_noconsent/c/sourceid_string%3A1138290.json", options: ["showChromeCastMiniControlsInPlayer": true])
+        
+        player2 = BBNativePlayer.createPlayerView(uiViewController: self, frame: view.frame, jsonUrl: "https://rtvnoord.bbvms.com/p/regiogroei_noord_ios_videoplayer_noconsent/c/sourceid_string%3A1138290.json", options: ["showChromeCastMiniControlsInPlayer": true])
         
         // use constraints to place and size the player view
-        view.addSubview(bbPlayerView!)
-        bbPlayerView?.translatesAutoresizingMaskIntoConstraints = false
-        bbPlayerView?.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor).isActive = true
-        bbPlayerView?.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0 ).isActive = true
-        bbPlayerView?.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor).isActive = true
+        view.addSubview(player1!)
+        view.addSubview(player2!)
+        player1?.tag = 1
+        player1?.translatesAutoresizingMaskIntoConstraints = false
+        player1?.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor).isActive = true
+        player1?.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 0 ).isActive = true
+        player1?.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor).isActive = true
         if ( view.safeAreaLayoutGuide.layoutFrame.width > view.safeAreaLayoutGuide.layoutFrame.height ) {
-            self.playerHeightConstraint?.constant = self.view.safeAreaLayoutGuide.layoutFrame.height
+            self.player1HeightConstraint?.constant = self.view.safeAreaLayoutGuide.layoutFrame.height
         } else {
-            self.playerHeightConstraint?.constant = self.view.safeAreaLayoutGuide.layoutFrame.width * 9/16
+            self.player1HeightConstraint?.constant = self.view.safeAreaLayoutGuide.layoutFrame.width * 9/16
         }
-        playerHeightConstraint?.isActive = true
+        player1HeightConstraint?.isActive = true
         
         // set class to delegate of player view
-        bbPlayerView?.delegate = self
+        player1?.delegate = self
+        
+        player2?.tag = 2
+        player2?.translatesAutoresizingMaskIntoConstraints = false
+        player2?.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor).isActive = true
+        player2?.topAnchor.constraint(equalTo: player1!.bottomAnchor, constant: 0 ).isActive = true
+        player2?.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor).isActive = true
+        if ( view.safeAreaLayoutGuide.layoutFrame.width > view.safeAreaLayoutGuide.layoutFrame.height ) {
+            self.player2HeightConstraint?.constant = self.view.safeAreaLayoutGuide.layoutFrame.height
+        } else {
+            self.player2HeightConstraint?.constant = self.view.safeAreaLayoutGuide.layoutFrame.width * 9/16
+        }
+        player2HeightConstraint?.isActive = true
+        
+        // set class to delegate of player view
+        player2?.delegate = self
         
         // place the cast button in the navigation bar
-        if let castButton = bbPlayerView?.player.createChromeCastButton {
+        if let castButton = player1?.player.createChromeCastButton {
             castButton.tintColor = UIColor.black
             navigationItem.rightBarButtonItem = UIBarButtonItem(customView: castButton)
         }
@@ -78,19 +100,19 @@ class APIUIViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
             //bbPlayerView?.setApiProperty(property: .fullscreen, value: false)
             break
         case "Play":
-            bbPlayerView?.player.play()
+            player1?.player.play()
             break
         case "Pause":
-            bbPlayerView?.player.pause()
+            player1?.player.pause()
             break
         case "Seek":
-            bbPlayerView?.player.seek(offsetInSeconds: 10)
+            player1?.player.seek(offsetInSeconds: 10)
             break
         case "Mute":
-            bbPlayerView?.player.muted = true
+            player1?.player.muted = true
             break
         case "Unmute":
-            bbPlayerView?.player.muted = false
+            player1?.player.muted = false
             break
         case "loadMediaClip":
             self.loadMediaClip()
@@ -102,65 +124,65 @@ class APIUIViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
             self.loadMediaClipList()
             break
         case "loadMediaClipById":
-            bbPlayerView?.player.loadWithClipId(clipId: "4256575", initiator: nil, autoPlay: true, seekTo: nil)
+            player1?.player.loadWithClipId(clipId: "4256575", initiator: nil, autoPlay: true, seekTo: nil)
             break
         case "loadProjectById":
-            bbPlayerView?.player.loadWithProjectId(projectId: "2209", initiator: nil, autoPlay: true, seekTo: nil)
+            player1?.player.loadWithProjectId(projectId: "2209", initiator: nil, autoPlay: true, seekTo: nil)
             break
         case "loadMediaClipListById":
-            bbPlayerView?.player.loadWithClipListId(clipListId: "1619442239940600", initiator: nil, autoPlay: true, seekTo: nil)
+            player1?.player.loadWithClipListId(clipListId: "1619442239940600", initiator: nil, autoPlay: true, seekTo: nil)
             break
         case "getClipData":
-            if let mediaClip: MediaClip = bbPlayerView?.player.clipData {
+            if let mediaClip: MediaClip = player1?.player.clipData {
                 showValue(title: "Clip id", message: mediaClip.id!)
             } else {
                 showValue(title: "Data", message: "Not available atm")
             }
             break
         case "getDuration":
-            if ( bbPlayerView?.player.duration != nil ) {
-                showValue(title: "Duration", message: "\(String(describing: bbPlayerView?.getApiProperty(property: .duration)))")
+            if ( player1?.player.duration != nil ) {
+                showValue(title: "Duration", message: "\(String(describing: player1?.getApiProperty(property: .duration)))")
             } else {
                 showValue(title: "Data", message: "Not available atm")
             }
             break
         case "getMuted":
-            if let muted: Bool = bbPlayerView?.player.muted {
+            if let muted: Bool = player1?.player.muted {
                 showValue(title: "Muted?", message: String(muted))
             } else {
                 showValue(title: "Data", message: "Not available atm")
             }
             break
         case "getPhase":
-            if let phase: Phase = bbPlayerView?.player.phase {
+            if let phase: Phase = player1?.player.phase {
                 showValue(title: "Phase", message: "\(String(describing: phase))")
             } else {
                 showValue(title: "Data", message: "Not available atm")
             }
             break
         case "getState":
-            if let state: State = bbPlayerView?.player.state {
+            if let state: State = player1?.player.state {
                 showValue(title: "State", message: "\(String(describing: state))")
             } else {
                 showValue(title: "Data", message: "Not available atm")
             }
             break
         case "getMode":
-            if let mode: String = bbPlayerView?.player.mode {
+            if let mode: String = player1?.player.mode {
                 showValue(title: "Mode", message: "\(String(describing: mode))")
             } else {
                 showValue(title: "Data", message: "Not available atm")
             }
             break
         case "getPlayoutData":
-            if let playout: Playout = bbPlayerView?.player.playoutData {
+            if let playout: Playout = player1?.player.playoutData {
                 showValue(title: "Playout name", message: playout.name!)
             } else {
                 showValue(title: "Data", message: "Not available atm")
             }
             break
         case "getProjectData":
-            if let project: Project = bbPlayerView?.player.projectData {
+            if let project: Project = player1?.player.projectData {
                 showValue(title: "Project name", message: project.name!)
             } else {
                 showValue(title: "Data", message: "Not available atm")
@@ -168,7 +190,7 @@ class APIUIViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
             break
             
         case "getVolume":
-            if let volume: Float = bbPlayerView?.player.volume {
+            if let volume: Float = player1?.player.volume {
                 showValue(title: "Project name", message: "\(volume)")
             } else {
                 showValue(title: "Data", message: "Not available atm")
@@ -205,7 +227,7 @@ class APIUIViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
                     // Option 2: parse the data using ContentLoader Companion object, then use parsed object to load content (uncomment and comment option 1 to try)
                     DispatchQueue.main.async {
                         if let clip: MediaClip = ContentLoader.Companion.init().parseMediaClip(jsonString: dataString) {
-                            self.bbPlayerView?.callApiMethod(method: .load_, args: ["clipData": clip, "autoPlay": false])
+                            self.player1?.callApiMethod(method: .load_, args: ["clipData": clip, "autoPlay": false])
                         } else {
                             print("Parsing of MediaClip Failed:")
                         }
@@ -240,7 +262,7 @@ class APIUIViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
                     // Option 2: parse the data using ContentLoader Companion object, then use parsed object to load content (uncomment and comment option 1 to try)
                     DispatchQueue.main.async {
                         if let project: Project = ContentLoader.Companion.init().parseProject(jsonString: dataString) {
-                            self.bbPlayerView?.callApiMethod(method: .load_, args: ["projectData": project, "autoPlay": true])
+                            self.player1?.callApiMethod(method: .load_, args: ["projectData": project, "autoPlay": true])
                         } else {
                             print("Parsing Project Failed:")
                         }
@@ -274,7 +296,7 @@ class APIUIViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
                     // Option 2: parse the data using ContentLoader Companion object, then use parsed object to load content (uncomment and comment option 1 to try)
                     DispatchQueue.main.async {
                         if let clipList: MediaClipList = ContentLoader.Companion.init().parseMediaClipList(jsonString: dataString) {
-                            self.bbPlayerView?.callApiMethod(method: .load_, args: ["clipListData": clipList, "autoPlay": true])
+                            self.player1?.callApiMethod(method: .load_, args: ["clipListData": clipList, "autoPlay": true])
 
                         } else {
                             print("Parsing MediaClipList Failed:")
@@ -308,11 +330,11 @@ class APIUIViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         
         if UIDevice.current.orientation.isLandscape {
             DispatchQueue.main.async {
-                self.playerHeightConstraint?.constant = self.view.safeAreaLayoutGuide.layoutFrame.height
+                self.player1HeightConstraint?.constant = self.view.safeAreaLayoutGuide.layoutFrame.height
             }
         } else {
             DispatchQueue.main.async {
-                self.playerHeightConstraint?.constant = self.view.safeAreaLayoutGuide.layoutFrame.width * 9/16
+                self.player1HeightConstraint?.constant = self.view.safeAreaLayoutGuide.layoutFrame.width * 9/16
             }
         }
     }
@@ -331,81 +353,81 @@ extension APIUIViewController: BBNativePlayerViewDelegate {
     }
     
     func bbNativePlayerView(playerView: BBNativePlayerView, didTriggerMediaClipLoaded data: MediaClip) {
-        addToEventDebug("Player API Delegate: didTriggerMediaClipLoaded")
+        addToEventDebug("Player \(playerView.tag) API Delegate: didTriggerMediaClipLoaded")
     }
 
     func bbNativePlayerView(didTriggerMediaClipFailed playerView: BBNativePlayerView) {
-        addToEventDebug("Player API Delegate: didTriggerMediaClipFailed")
+        addToEventDebug("Player \(playerView.tag) API Delegate: didTriggerMediaClipFailed")
     }
     
     func bbNativePlayerView(didTriggerViewStarted playerView: BBNativePlayerView) {
-        addToEventDebug("Player API Delegate: didTriggerViewStarted")
+        addToEventDebug("Player \(playerView.tag) API Delegate: didTriggerViewStarted")
     }
     
     func bbNativePlayerView(didTriggerViewFinished playerView: BBNativePlayerView) {
-        addToEventDebug("Player API Delegate: didTriggerViewFinished")
+        addToEventDebug("Player \(playerView.tag) API Delegate: didTriggerViewFinished")
     }
     
     func bbNativePlayerView(playerView: BBNativePlayerView, didTriggerProjectLoaded data: Project) {
-        addToEventDebug("Player API Delegate: didTriggerProjectLoaded")
+        addToEventDebug("Player \(playerView.tag) API Delegate: didTriggerProjectLoaded")
     }
     
     func bbNativePlayerView(didTriggerCanPlay playerView: BBNativePlayerView) {
-        addToEventDebug("Player API Delegate: didTriggerCanPlay")
+        addToEventDebug("Player \(playerView.tag) API Delegate: didTriggerCanPlay")
     }
     
     func bbNativePlayerView(playerView: BBNativePlayerView, didTriggerDurationChange duration: Double) {
-        addToEventDebug("Player API Delegate: didTriggerDurationChange : \(duration)")
+        addToEventDebug("Player \(playerView.tag) API Delegate: didTriggerDurationChange : \(duration)")
     }
     
     func bbNativePlayerView(didTriggerPause playerView: BBNativePlayerView) {
-        addToEventDebug("Player API Delegate: didTriggerPause")
+        addToEventDebug("Player \(playerView.tag) API Delegate: didTriggerPause")
         print("*** pause")
     }
     
     func bbNativePlayerView(didTriggerPlaying playerView: BBNativePlayerView) {
-        addToEventDebug("Player API Delegate: didTriggerPlaying")
+        addToEventDebug("Player \(playerView.tag) API Delegate: didTriggerPlaying")
         print("*** playing")
     }
     
     func bbNativePlayerView(didTriggerEnded playerView: BBNativePlayerView) {
-        addToEventDebug("Player API Delegate: didTriggerEnded")
+        addToEventDebug("Player \(playerView.tag) API Delegate: didTriggerEnded")
     }
    
     func bbNativePlayerView(didTriggerSeeking playerView: BBNativePlayerView) {
-        addToEventDebug("Player API Delegate: didTriggerSeeking")
+        addToEventDebug("Player \(playerView.tag) API Delegate: didTriggerSeeking")
     }
     
     func bbNativePlayerView(playerView: BBNativePlayerView, didTriggerSeeked seekOffset: Double) {
-        addToEventDebug("Player API Delegate: didTriggerSeeked : \(seekOffset)")
+        addToEventDebug("Player \(playerView.tag) API Delegate: didTriggerSeeked : \(seekOffset)")
     }
     
     func bbNativePlayerView(didTriggerStall playerView: BBNativePlayerView) {
-        addToEventDebug("Player API Delegate: didTriggerStall")
+        addToEventDebug("Player \(playerView.tag) API Delegate: didTriggerStall")
     }
     
     func bbNativePlayerView(didTriggerAutoPause playerView: BBNativePlayerView) {
-        addToEventDebug("Player API Delegate: didTriggerAutoPause")
+        addToEventDebug("Player \(playerView.tag) API Delegate: didTriggerAutoPause")
     }
     
     func bbNativePlayerView(didTriggerAutoPausePlay playerView: BBNativePlayerView) {
-        addToEventDebug("Player API Delegate: didTriggerAutoPausePlay")
+        addToEventDebug("Player \(playerView.tag) API Delegate: didTriggerAutoPausePlay")
     }
     
     func bbNativePlayerView(playerView: BBNativePlayerView, didFailWithError error: String?) {
-        addToEventDebug("Player API Delegate: didFailWithError")
+        addToEventDebug("Player \(playerView.tag) API Delegate: didFailWithError")
     }
     
     func bbNativePlayerView(playerView: BBNativePlayerView, didTriggerAdError error: String?) {
-        addToEventDebug("Player API Delegate: didTriggerAdError : \(String(describing: error))")
+        addToEventDebug("Player \(playerView.tag) API Delegate: didTriggerAdError : \(String(describing: error))")
     }
 
     func bbNativePlayerView(playerView: BBNativePlayerView, didTriggerPhaseChange phase: Phase?) {
-        addToEventDebug("Player API Delegate: didTriggerPhaseChange : \(String(describing: phase))")
+        addToEventDebug("Player \(playerView.tag) API Delegate: didTriggerPhaseChange : \(String(describing: phase))")
     }
     
     func bbNativePlayerView(playerView: BBNativePlayerView, didTriggerStateChange state: State?) {
-        addToEventDebug("Player API Delegate: didTriggerStateChange : \(String(describing: state))")
+        addToEventDebug("Player \(playerView.tag) API Delegate: didTriggerStateChange : \(String(describing: state))")
     }
     
     func didRequestOpenUrl(url: String?) {
@@ -413,17 +435,17 @@ extension APIUIViewController: BBNativePlayerViewDelegate {
     }
     
     func bbNativePlayerView(didTriggerAdLoaded playerView: BBNativePlayerView) {
-        addToEventDebug("Player API Delegate: didTriggerAdLoaded")
+        addToEventDebug("Player \(playerView.tag) API Delegate: didTriggerAdLoaded")
 //        print("*** didTriggerAdLoaded  adMediaWidth = \(self.bbPlayerView?.player.adMediaWidth) ")
 //        print("*** didTriggerAdLoaded  adMediaHeight = \(self.bbPlayerView?.player.adMediaHeight) ")
     }
     
     func bbNativePlayerView(didTriggerAdSwipeLeft playerView: BBNativePlayerView) {
-        addToEventDebug("Player API Delegate: didtriggerAdSwipeLeft")
+        addToEventDebug("Player \(playerView.tag) API Delegate: didtriggerAdSwipeLeft")
     }
 
     func bbNativePlayerView(didTriggerAdSwipeRight playerView: BBNativePlayerView) {
-        addToEventDebug("Player API Delegate: didtriggerAdSwipeRight")
+        addToEventDebug("Player \(playerView.tag) API Delegate: didtriggerAdSwipeRight")
     }
         
     func bbNativePlayerView(didRequestCollapse playerView: BBNativePlayerView) {
