@@ -19,7 +19,8 @@ class APIUIViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         APIActionUIPickerView.delegate = self
 
         // create player view using the embed url
-        bbPlayerView = BBNativePlayer.createPlayerView(uiViewController: self, frame: view.frame, jsonUrl: "https://demo.bbvms.com/p/native_sdk/c/4256593.json", options: ["showChromeCastMiniControlsInPlayer": true])
+        bbPlayerView = BBNativePlayer.createPlayerView(uiViewController: self, frame: view.frame, jsonUrl: "https://omroepwest.bbvms.com/p/regiogroei_west_ios_videoplayer_vertical/q/sourceid_string%3AVV_4866521.json",
+                                                       options: ["allowCollapseExpand": false, "autoPlay": true, "noChromeCast": true])
         
         // use constraints to place and size the player view
         view.addSubview(bbPlayerView!)
