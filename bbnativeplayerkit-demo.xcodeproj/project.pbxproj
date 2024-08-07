@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		0DF4C7883D76908705BD3072 /* libPods-bbnativeplayerkit-demo.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A1D81934D4BEA7E8A663CA44 /* libPods-bbnativeplayerkit-demo.a */; };
+		4F8F3E5F2C6355EC00C4515E /* VerticalVideoViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8F3E5E2C6355EC00C4515E /* VerticalVideoViewController.swift */; };
+		4F8F3E612C63578000C4515E /* VerticalVideoDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8F3E602C63577C00C4515E /* VerticalVideoDataSource.swift */; };
+		4F8F3E632C6357E700C4515E /* VerticalVideoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8F3E622C6357E200C4515E /* VerticalVideoCollectionViewCell.swift */; };
+		4F8F3E952C63615000C4515E /* VerticalVideoCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F8F3E942C63615000C4515E /* VerticalVideoCollectionViewCell.xib */; };
+		4F8F3EC72C63756D00C4515E /* DispatchTimeInterval+Comparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F8F3EC62C63756700C4515E /* DispatchTimeInterval+Comparable.swift */; };
 		ED533D6525EE2DE9007F22A8 /* APIUIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED533D5525EE2DE9007F22A8 /* APIUIViewController.swift */; };
 		ED533D6625EE2DE9007F22A8 /* InOutViewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED533D5725EE2DE9007F22A8 /* InOutViewViewController.swift */; };
 		ED533D6725EE2DE9007F22A8 /* ListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED533D5A25EE2DE9007F22A8 /* ListViewController.swift */; };
@@ -32,6 +37,11 @@
 
 /* Begin PBXFileReference section */
 		037F00D8464F9D1B5453F228 /* Pods-bbnativeplayerkit-demo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bbnativeplayerkit-demo.debug.xcconfig"; path = "Target Support Files/Pods-bbnativeplayerkit-demo/Pods-bbnativeplayerkit-demo.debug.xcconfig"; sourceTree = "<group>"; };
+		4F8F3E5E2C6355EC00C4515E /* VerticalVideoViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VerticalVideoViewController.swift; path = "bbnativeplayerkit-demo/VerticalVideo/VerticalVideoViewController.swift"; sourceTree = SOURCE_ROOT; };
+		4F8F3E602C63577C00C4515E /* VerticalVideoDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalVideoDataSource.swift; sourceTree = "<group>"; };
+		4F8F3E622C6357E200C4515E /* VerticalVideoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticalVideoCollectionViewCell.swift; sourceTree = "<group>"; };
+		4F8F3E942C63615000C4515E /* VerticalVideoCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = VerticalVideoCollectionViewCell.xib; sourceTree = "<group>"; };
+		4F8F3EC62C63756700C4515E /* DispatchTimeInterval+Comparable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DispatchTimeInterval+Comparable.swift"; sourceTree = "<group>"; };
 		63F2AB860CD6EEBC5FBFD08B /* Pods-bbnativeplayerkit-demo.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-bbnativeplayerkit-demo.release.xcconfig"; path = "Target Support Files/Pods-bbnativeplayerkit-demo/Pods-bbnativeplayerkit-demo.release.xcconfig"; sourceTree = "<group>"; };
 		A1D81934D4BEA7E8A663CA44 /* libPods-bbnativeplayerkit-demo.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-bbnativeplayerkit-demo.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		ED533D3B25EE2D5A007F22A8 /* bbnativeplayerkit-demo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "bbnativeplayerkit-demo.app"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -79,6 +89,17 @@
 			path = Pods;
 			sourceTree = "<group>";
 		};
+		4F8F3E5D2C63558D00C4515E /* VerticalVideo */ = {
+			isa = PBXGroup;
+			children = (
+				4F8F3EC62C63756700C4515E /* DispatchTimeInterval+Comparable.swift */,
+				4F8F3E5E2C6355EC00C4515E /* VerticalVideoViewController.swift */,
+				4F8F3E622C6357E200C4515E /* VerticalVideoCollectionViewCell.swift */,
+				4F8F3E602C63577C00C4515E /* VerticalVideoDataSource.swift */,
+			);
+			path = VerticalVideo;
+			sourceTree = "<group>";
+		};
 		6C1DCC80CDEA1F1D7DDB2B58 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -108,6 +129,7 @@
 		ED533D3D25EE2D5A007F22A8 /* bbnativeplayerkit-demo */ = {
 			isa = PBXGroup;
 			children = (
+				4F8F3E5D2C63558D00C4515E /* VerticalVideo */,
 				ED576DAD2A39E4D90064C08C /* Misc */,
 				ED7FD95126398E9C0043C63C /* Menu */,
 				ED533D5425EE2DE9007F22A8 /* API */,
@@ -125,6 +147,7 @@
 				ED533D4C25EE2D5C007F22A8 /* Info.plist */,
 				ED533D7C25EE2E1B007F22A8 /* LaunchScreen.storyboard */,
 				ED533D7925EE2E11007F22A8 /* Assets.xcassets */,
+				4F8F3E942C63615000C4515E /* VerticalVideoCollectionViewCell.xib */,
 			);
 			path = "bbnativeplayerkit-demo";
 			sourceTree = "<group>";
@@ -300,6 +323,7 @@
 				ED533D7D25EE2E1B007F22A8 /* LaunchScreen.storyboard in Resources */,
 				ED533D7A25EE2E11007F22A8 /* Assets.xcassets in Resources */,
 				ED533D7725EE2E00007F22A8 /* Main.storyboard in Resources */,
+				4F8F3E952C63615000C4515E /* VerticalVideoCollectionViewCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -382,9 +406,13 @@
 				ED533D6725EE2DE9007F22A8 /* ListViewController.swift in Sources */,
 				EDD8161B263BEB4300381B4B /* WebViewUIViewController.swift in Sources */,
 				ED533D6D25EE2DE9007F22A8 /* OutStreamUIViewController.swift in Sources */,
+				4F8F3E612C63578000C4515E /* VerticalVideoDataSource.swift in Sources */,
 				ED533D6925EE2DE9007F22A8 /* CollectionViewMediaClipModel.swift in Sources */,
 				ED533D7425EE2DF7007F22A8 /* SceneDelegate.swift in Sources */,
+				4F8F3EC72C63756D00C4515E /* DispatchTimeInterval+Comparable.swift in Sources */,
+				4F8F3E632C6357E700C4515E /* VerticalVideoCollectionViewCell.swift in Sources */,
 				ED9D2B862636C77900E69487 /* PrePostrollUIViewController.swift in Sources */,
+				4F8F3E5F2C6355EC00C4515E /* VerticalVideoViewController.swift in Sources */,
 				ED9124C827BCF976001286F9 /* ChromeCastControlsUIViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -518,7 +546,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = PFYB2YN255;
+				DEVELOPMENT_TEAM = E85CT7ZDJC;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -530,7 +558,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 8.2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.bluebillywig.bbnativeplayerkit-demo";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.bluebillywig.bbnativeplayerkit-demo.daniel";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;
@@ -545,7 +573,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = PFYB2YN255;
+				DEVELOPMENT_TEAM = E85CT7ZDJC;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -557,7 +585,7 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 8.2.0;
-				PRODUCT_BUNDLE_IDENTIFIER = "com.bluebillywig.bbnativeplayerkit-demo";
+				PRODUCT_BUNDLE_IDENTIFIER = "com.bluebillywig.bbnativeplayerkit-demo.daniel";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 1;

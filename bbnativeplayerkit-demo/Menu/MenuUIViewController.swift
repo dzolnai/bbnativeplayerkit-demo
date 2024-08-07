@@ -46,14 +46,14 @@ class MenuUIViewController: UIViewController, MenuCollectionViewControllerDelega
         addChild(menuCollectionViewController)
         let menuCollectionView = menuCollectionViewController.view
         
-        let numberOfButtonRows:CGFloat = 4
+        let numberOfButtonRows:CGFloat = 5
         
         view.addSubview(menuCollectionView!)
         menuCollectionView?.translatesAutoresizingMaskIntoConstraints = false
         menuCollectionView?.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor).isActive = true
-        menuCollectionView?.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor, constant: 0).isActive = true
-        menuCollectionView?.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor, constant: 0).isActive = true
-        menuCollectionView?.heightAnchor.constraint(equalToConstant: (180 * numberOfButtonRows)).isActive = true
+        menuCollectionView?.leftAnchor.constraint(equalTo: view.safeAreaLayoutGuide.leftAnchor).isActive = true
+        menuCollectionView?.widthAnchor.constraint(equalTo: view.safeAreaLayoutGuide.widthAnchor).isActive = true
+        menuCollectionView?.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor).isActive = true
        
         menuCollectionViewController.didMove(toParent: self)
         
@@ -181,6 +181,11 @@ class MenuCollectionViewController: UIViewController, UICollectionViewDelegate, 
                                 color1: UIColor.init(hex: "#E7AA5AFF") ?? UIColor.systemGray,
                                 color2: UIColor.init(hex: "#DC8237FF") ?? UIColor.systemGray)
         menuItems.append(menuItem)
+        menuItem = MenuItem(name: "VerticalVideo",
+                                title: "Vertical video",
+                                color1: UIColor.init(hex: "#000000FF") ?? UIColor.systemGray,
+                                color2: UIColor.init(hex: "#222222FF") ?? UIColor.systemGray)
+        menuItems.append(menuItem)
        
     }
     
@@ -241,13 +246,10 @@ class MenuCollectionViewCell: UICollectionViewCell {
         super.init(frame: frame)
         
         
-        
-        
-        let button1 = CreateButton( title: "API", color1: UIColor.init(hex: "#E7AA5AFF")!, color2: UIColor.init(hex: "#DC8237FF")!)
-        button1.addTarget(self, action: #selector(openMenuItem), for: .touchUpInside)
-        addSubview(button1)
-        button1.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: 0).isActive = true
-        button1.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
+        button.addTarget(self, action: #selector(openMenuItem), for: .touchUpInside)
+        addSubview(button)
+        button.leftAnchor.constraint(equalTo: safeAreaLayoutGuide.leftAnchor, constant: 0).isActive = true
+        button.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor, constant: 0).isActive = true
     }
     
     required init?(coder: NSCoder) {
@@ -265,19 +267,9 @@ class MenuCollectionViewCell: UICollectionViewCell {
         button.heightAnchor.constraint(equalToConstant: 160).isActive = true
        
     }
-
-   
-    deinit {
-    }
     
     @objc func openMenuItem(gesture: UITapGestureRecognizer) {
         
-    }
-    
-    
-    private func CreateButton( title: String, color1: UIColor, color2: UIColor)-> UIButton {
-        
-        return button
     }
 }
 

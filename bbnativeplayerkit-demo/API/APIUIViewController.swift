@@ -19,7 +19,7 @@ class APIUIViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         APIActionUIPickerView.delegate = self
 
         // create player view using the embed url
-        bbPlayerView = BBNativePlayer.createPlayerView(uiViewController: self, frame: view.frame, jsonUrl: "https://omroepwest.bbvms.com/p/regiogroei_west_ios_videoplayer_vertical/q/sourceid_string%3AVV_4866521.json",
+        bbPlayerView = BBNativePlayer.createPlayerView(uiViewController: self, frame: view.frame, jsonUrl: "https://omroepwest.bbvms.com/p/regiogroei_west_ios_videoplayer_vertical_preroll/q/sourceid_string%3AVV_4867116.json",
                                                        options: ["allowCollapseExpand": false, "autoPlay": true, "noChromeCast": true])
         
         // use constraints to place and size the player view
@@ -42,6 +42,16 @@ class APIUIViewController: UIViewController, UIPickerViewDelegate, UIPickerViewD
         if let castButton = bbPlayerView?.player.createChromeCastButton {
             castButton.tintColor = UIColor.black
             navigationItem.rightBarButtonItem = UIBarButtonItem(customView: castButton)
+        }
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + 5) { [weak self] in
+            guard let self else {
+                return
+            }
+            self.bbPlayerView?.player.pause()
+            self.bbPlayerView?.destroy()
+            self.bbPlayerView?.delegate = nil
+            self.bbPlayerView?.removeFromSuperview()
         }
     }
     
@@ -438,5 +448,9 @@ extension APIUIViewController: BBNativePlayerViewDelegate {
     
     func bbNativePlayerView(didTriggerUIPanGesture playerView: BBNativePlayerView, translation: CGPoint) {
         print("***** didTriggerUIPangesture: translation = \(translation)")
+    }
+    
+    func bbNativePlayerView(playerView: BBNativePlayerView, didTriggerCustomStatistics ident: String, ev: String, aux: [String : String]) {
+        print("CUSTOM STATISTICS: \(ev)")
     }
 }

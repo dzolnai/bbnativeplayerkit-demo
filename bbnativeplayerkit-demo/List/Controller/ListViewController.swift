@@ -134,7 +134,7 @@ class ListViewController: UICollectionViewController, UICollectionViewDelegateFl
         if ( index % 2 != 0 ) {
             options = [
                 "autoPlay": false,
-                "showChromeCastMiniControlsInPlayer": true
+                "showChromeCastMiniControlsInPlayer": false
             ]
         }
         // Create player and present it modally
