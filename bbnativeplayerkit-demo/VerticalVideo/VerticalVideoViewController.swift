@@ -49,6 +49,17 @@ class VerticalVideoViewController: UIViewController {
         setupCollectionView()
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        print("VerticalVideoViewController viewWillDisappear")
+        for cell in self.collectionView.visibleCells {
+            if let cell = cell as? VerticalVideoCollectionViewCell {
+                cell.removePlayerView()
+            }
+        }
+        super.viewWillDisappear(animated)
+    }
+
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         

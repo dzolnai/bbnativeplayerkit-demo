@@ -92,7 +92,7 @@ class VerticalVideoCollectionViewCell: UICollectionViewCell {
         delegate?.didEndPlayingCurrentVideo()
     }
     
-    private func removePlayerView() {
+    func removePlayerView() {
         player?.player.pause()
         player?.isHidden = true
         player?.delegate = nil
