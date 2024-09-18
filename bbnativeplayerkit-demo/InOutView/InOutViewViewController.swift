@@ -115,7 +115,7 @@ Non pulvinar neque laoreet suspendisse interdum consectetur libero. Volutpat odi
         let imageFrame = UIBezierPath(rect: imageView.frame)
         
         // Create player using playout with inview play and outview pause action
-        bbPlayerView = BBNativePlayer.createPlayerView(uiViewController: self, frame: view.frame, jsonUrl: "https://demo.bbvms.com/p/native_sdk_inoutview/c/4256635.json")
+        bbPlayerView = BBNativePlayer.createPlayerView(uiViewController: self, frame: view.frame, jsonUrl: "https://limburg.bbvms.com/p/regiogroei_1limburg_app_videoplayer_ios/q/sourceid_string:1529451.json")
 
         // Add player to scrollView
         scrollView.addSubview(bbPlayerView!)
