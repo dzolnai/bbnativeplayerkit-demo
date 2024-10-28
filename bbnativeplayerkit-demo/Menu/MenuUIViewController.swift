@@ -90,6 +90,25 @@ class MenuUIViewController: UIViewController, MenuCollectionViewControllerDelega
 
                     present(alertController, animated: true, completion: nil)
                     
+                } else if (menuItem.name == "shorts_beta"){
+                    let alertController = UIAlertController(title: "Enter your shorts json url", message: nil, preferredStyle: .alert)
+
+                    alertController.addTextField { textField in
+                        textField.text = "https://maxetise.bbvms.com/sh/60.json"
+                    }
+
+                    let submitAction = UIAlertAction(title: "Submit", style: .default) { _ in
+                        if let text = alertController.textFields?.first?.text {
+                            if let svc: ShortsUIViewController = vc as? ShortsUIViewController {
+                                svc.jsonUrl = text
+                                self.navigationController?.pushViewController(vc, animated: true)
+                            }
+                        }
+                    }
+
+                    alertController.addAction(submitAction)
+
+                    present(alertController, animated: true, completion: nil)
                 } else {
                     self.navigationController?.pushViewController(vc, animated: true)
                 }
@@ -176,12 +195,22 @@ class MenuCollectionViewController: UIViewController, UICollectionViewDelegate, 
                                 title: "Load JSON",
                                 color1: UIColor.init(hex: "#793BEBFF") ?? UIColor.systemGray,
                                 color2: UIColor.init(hex: "#47BAECFF") ?? UIColor.systemGray)
+        menuItem = MenuItem(name: "chapters",
+                                title: "Chapters",
+                                color1: UIColor.init(hex: "#E6787BFF") ?? UIColor.systemGray,
+                                color2: UIColor.init(hex: "#DA4749FF") ?? UIColor.systemGray)
+        menuItems.append(menuItem)
+        menuItem = MenuItem(name: "highlights",
+                                title: "Highlights",
+                                color1: UIColor.init(hex: "#DE433CFF") ?? UIColor.systemGray,
+                                color2: UIColor.init(hex: "#CE2824FF") ?? UIColor.systemGray)
+        menuItems.append(menuItem)
         menuItem = MenuItem(name: "shorts_beta",
                                 title: "Shorts Beta",
                                 color1: UIColor.init(hex: "#E7AA5AFF") ?? UIColor.systemGray,
                                 color2: UIColor.init(hex: "#DC8237FF") ?? UIColor.systemGray)
         menuItems.append(menuItem)
-       
+        
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
